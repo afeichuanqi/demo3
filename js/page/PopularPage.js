@@ -32,7 +32,7 @@ import {FLAG_LANGUAGE} from "../expand/dao/LanguageDao";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AnalyticsUtil from '../util/AnalyticsUtil'
 type Props = {};
-const URL = "http://api.github.com/search/repositories?q=";
+const URL = "https://api.github.com/search/repositories?q=";
 const QUERY_STR = '&sort=stars';
 const favoriteDAO = new favoriteDao(FLAG_STORAGE.flag_popular);
 

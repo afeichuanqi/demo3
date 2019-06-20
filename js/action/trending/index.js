@@ -7,7 +7,6 @@ export function onLoadingTrending(storeName, url, pageSize,favoriteDAO) {
         dispatch({type: Types.TRENDING_REFRESH, storeName});
         let dataStore = new DataStore();
         dataStore.fetchData(url,FLAG_STORAGE.flag_trending).then((data) => {//异步action与数据流
-            // console.log(data);
             handleDate(Types.TRENDING_REFRESH_SUCCESS,dispatch, data, storeName, pageSize,favoriteDAO);
         }).catch((error) => {
             dispatch({

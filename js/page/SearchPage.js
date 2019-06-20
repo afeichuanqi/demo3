@@ -143,7 +143,7 @@ class SearchPage extends Component<Props> {
             }
         >
             <View style={{marginRight: 10}}>
-                <Text style={styles.title}>{showText}</Text>
+                <Text style={styles.title}>{showText}1</Text>
             </View>
         </TouchableOpacity>;
 

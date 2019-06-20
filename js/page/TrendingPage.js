@@ -26,7 +26,6 @@ import TrendingItem from '../common/TrendingItem';
 import TrendingDialog, {TimeSpans} from '../common/TrendingDialog';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import navigatorUtil from '../navigator/NavigationUtils';
-import {isIphoneX} from '../util/ScreenUtil';
 import FavoriteUtil from "../util/FavoriteUtil";
 import {FLAG_STORAGE} from "../expand/dao/DataStore";
 import favoriteDao from '../expand/dao/FavoriteDAO';
@@ -37,7 +36,7 @@ import ArrayUtil from "../util/ArrayUtil";
 
 type Props = {};
 const favoriteDAO = new favoriteDao(FLAG_STORAGE.flag_trending);
-const URL = "http://github.com/trending/";
+const URL = "https://github.com/trending/";
 const EVENT_TYPE_TIME_SPAN_CHANGE = "EVENT_TYPE_TIME_SPAN_CHANGE";
 class TrendingPage extends Component<Props> {
     constructor(props) {
@@ -57,10 +56,12 @@ class TrendingPage extends Component<Props> {
         const {languages} = this.props;
         this.preKeys = languages;
         languages.forEach((item, index) => {
+
             if(item.checked){
+                console.log(item.path);
                 Tabs[`TopTab${index}`] = {
                     screen: props => (
-                        <TopTabConnect theme={theme} {...props} timeSpan={this.state.timeSpan} storeName={item.name}></TopTabConnect>
+                        <TopTabConnect theme={theme} {...props} timeSpan={this.state.timeSpan} storeName={item.path}></TopTabConnect>
                     ),
                     navigationOptions: {
                         title: `${item.name}`

@@ -5,6 +5,7 @@ import android.app.Application;
 import com.demo3.invokenative.DplusReactPackage;
 import com.demo3.invokenative.RNUMConfigure;
 import com.facebook.react.ReactApplication;
+//import com.facebook.react.views.webview.
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,9 +27,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-             new DplusReactPackage(),
             new RNCWebViewPackage(),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+             new DplusReactPackage()
       );
     }
 

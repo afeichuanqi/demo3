@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react-native';
 import Trending from 'GitHubTrending';
-
+import axios from 'axios';
 export const FLAG_STORAGE = {flag_popular: 'popular', flag_trending: 'trending'};
 export default class DataStore {
 
@@ -13,6 +13,8 @@ export default class DataStore {
     fetchData(url, flag) {
         return new Promise((resolve, reject) => {
             this.fetchLocalData(url).then((wrapData) => {
+                //console.log("wrapData",wrapData);
+
                 if (wrapData && DataStore.checkTimestampValid(wrapData.timestamp)) {
                     resolve(wrapData);
                 } else {
@@ -76,25 +78,17 @@ export default class DataStore {
     fetchNetData(url, flag) {
         return new Promise((resolve, reject) => {
             if (flag !== FLAG_STORAGE.flag_trending) {
-                fetch(url, {
-                    "Accept": "application/json",
-                    "Content-Type": 'application/json',
-                    "Connection": "close",
-                    "type": "getUserData",
-                }).then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new Error('Network response was not ok.');
+                axios.get(url).then(response => {
+                    const responseData = response.data;
+                    this.saveData(url, responseData)
+                    resolve(responseData);
                 })
-                    .then((responseData) => {
-                        this.saveData(url, responseData)
-                        resolve(responseData);
-                    })
-                    .catch((error) => {
+                    .catch(error => {
+                        console.log("error",error);
                         reject(error);
-                    })
+                    });
             } else {
+                console.log(url);
                 new Trending().fetchTrending(url)
                     .then(items => {
                         if (!items) {
@@ -126,7 +120,6 @@ export default class DataStore {
         if (currentDate.getMonth() !== targetDate.getMonth()) return false;
         if (currentDate.getDate() !== targetDate.getDate()) return false;
         if (currentDate.getHours() - targetDate.getHours() > 4) return false;//有效期4个小时
-        // if (currentDate.getMinutes() - targetDate.getMinutes() > 1)return false;
         return true;
     }
 }
