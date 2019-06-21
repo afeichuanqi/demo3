@@ -15,7 +15,7 @@ import {
     View,
     FlatList,
     RefreshControl,
-    DeviceEventEmitter,
+    DeviceEventEmitter, InteractionManager,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from 'react-navigation';
 import NavigationBar from '../common/NavigationBar';
@@ -58,7 +58,7 @@ class TrendingPage extends Component<Props> {
         languages.forEach((item, index) => {
 
             if(item.checked){
-                console.log(item.path);
+               // console.log(item.path);
                 Tabs[`TopTab${index}`] = {
                     screen: props => (
                         <TopTabConnect theme={theme} {...props} timeSpan={this.state.timeSpan} storeName={item.path}></TopTabConnect>
@@ -186,19 +186,22 @@ class TopTab extends Component {
     }
 
     componentDidMount(): void {
-        this.loadData();
-        this.timeSpanChangeListener = DeviceEventEmitter.addListener(EVENT_TYPE_TIME_SPAN_CHANGE, (timeSpan) => {
-            this.timeSpan = timeSpan;
+        InteractionManager.runAfterInteractions(()=>{
             this.loadData();
-        });
-        EventBus.getInstance().addListener(EventTypes.favorite_changed_trending, this.favoriteChangeListener = () => {
-            this.isFavoriteChanged = true;
-        });
-        EventBus.getInstance().addListener(EventTypes.bottom_tab_select, (data) => {
-            if (data.to === 1 && this.isFavoriteChanged) {
-                this.loadData(null, true);
-            }
-        });
+            this.timeSpanChangeListener = DeviceEventEmitter.addListener(EVENT_TYPE_TIME_SPAN_CHANGE, (timeSpan) => {
+                this.timeSpan = timeSpan;
+                this.loadData();
+            });
+            EventBus.getInstance().addListener(EventTypes.favorite_changed_trending, this.favoriteChangeListener = () => {
+                this.isFavoriteChanged = true;
+            });
+            EventBus.getInstance().addListener(EventTypes.bottom_tab_select, (data) => {
+                if (data.to === 1 && this.isFavoriteChanged) {
+                    this.loadData(null, true);
+                }
+            });
+        })
+
 
 
     }

@@ -84,11 +84,11 @@ export default class DataStore {
                     resolve(responseData);
                 })
                     .catch(error => {
-                        console.log("error",error);
+                        //console.log("error",error);
                         reject(error);
                     });
             } else {
-                console.log(url);
+                //console.log(url);
                 new Trending().fetchTrending(url)
                     .then(items => {
                         if (!items) {

@@ -26,7 +26,7 @@ export function onSearch(inputKey, pageSize, token, favoriteDAO, popularKeys, ca
         }).then(responseData => {
 
             if (hasCancel(token, true)) {//如果任务取消则不做任何处理
-                console.log('use cancel');
+                //console.log('use cancel');
                 return;
             }
             if (!responseData || !responseData.items || responseData.items.length === 0) {
@@ -41,7 +41,7 @@ export function onSearch(inputKey, pageSize, token, favoriteDAO, popularKeys, ca
             });
 
         }).catch(e => {
-            console.log(e);
+            //console.log(e);
             dispatch({type: Types.SEARCH_FAIL, error: e});
         })
 

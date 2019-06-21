@@ -34,7 +34,7 @@ export default class DetailPage extends Component<Props> {
             isFavorite:projectModel.isFavorite
         }
         this.backPress = new BackPressComponent({backPress:()=>this.onBackPress()})
-        console.log('TrendingDialog constructor');
+        //console.log('TrendingDialog constructor');
     }
     componentDidMount(): void {
         this.backPress.componentDidMount()

@@ -54,7 +54,7 @@ export default class AboutPage extends Component<Props> {
                 Linking.canOpenURL(url)
                     .then(bool=>{
                         if(!bool){
-                            console.log('Can\'t handle url');
+                            //console.log('Can\'t handle url');
                         } else {
                             Linking.openURL(url);
                         }

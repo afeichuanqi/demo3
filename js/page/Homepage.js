@@ -34,12 +34,12 @@ class Homepage extends Component<Props> {
 
     onBackPress = () => {
         const {dispatch, nav} = this.props;
-        console.log(nav.routes[1].index);
+        //console.log(nav.routes[1].index);
 
         if (nav.routes[1].index === 0) {//如果RootNavigator中的MainNavigator的index为0，则不处理返回事件
             return false;
         }
-        console.log("NavigationActions.back()",NavigationActions.back());
+        //console.log("NavigationActions.back()",NavigationActions.back());
         dispatch(NavigationActions.back());
         return true;//不处理返回键
     };

@@ -7,7 +7,18 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, ActivityIndicator, StyleSheet, Text, View, Button, FlatList, RefreshControl,DeviceInfo} from 'react-native';
+import {
+    Platform,
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    View,
+    Button,
+    FlatList,
+    RefreshControl,
+    DeviceInfo,
+    InteractionManager
+} from 'react-native';
 import {createMaterialTopTabNavigator} from 'react-navigation';
 import NavigationBar from '../common/NavigationBar';
 import {connect} from 'react-redux';
@@ -91,12 +102,17 @@ class FavoriteTab extends Component {
     }
 
     componentDidMount(): void {
-        this.loadData();
-        EventBus.getInstance().addListener(EventTypes.bottom_tab_select,this.listener=data=>{
-            if(data.to===2){
-                this.loadData(false);
-            }
+        InteractionManager.runAfterInteractions(()=>{
+            this.loadData();
+            EventBus.getInstance().addListener(EventTypes.bottom_tab_select,this.listener=data=>{
+                if(data.to===2){
+                    this.loadData(false);
+                }
+            })
+
         })
+
+
     }
     componentWillUnmount(): void {
         EventBus.getInstance().removeListener(this.listener);

@@ -14,7 +14,8 @@ import {
     View,
     FlatList,
     RefreshControl,
-    TouchableOpacity
+    TouchableOpacity,
+    InteractionManager
 } from 'react-native';
 import {createMaterialTopTabNavigator} from 'react-navigation';
 import NavigationBar from '../common/NavigationBar';
@@ -148,15 +149,18 @@ class TopTab extends Component {
     }
 
     componentDidMount(): void {
-        this.loadData();
-        EventBus.getInstance().addListener(EventTypes.favorite_changed_popular, this.favoriteChangeListener = () => {
-            this.isFavoriteChanged = true;
+        InteractionManager.runAfterInteractions(() => {
+            this.loadData();
+            EventBus.getInstance().addListener(EventTypes.favorite_changed_popular, this.favoriteChangeListener = () => {
+                this.isFavoriteChanged = true;
+            });
+            EventBus.getInstance().addListener(EventTypes.bottom_tab_select, this.bottomTabSelectListener = (data) => {
+                if (data.to === 0 && this.isFavoriteChanged) {
+                    this.loadData(null, true);
+                }
+            })
         });
-        EventBus.getInstance().addListener(EventTypes.bottom_tab_select, this.bottomTabSelectListener = (data) => {
-            if (data.to === 0 && this.isFavoriteChanged) {
-                this.loadData(null, true);
-            }
-        })
+
     }
 
     componentWillUnmount(): void {
@@ -260,7 +264,7 @@ class TopTab extends Component {
                     }
                     ListFooterComponent={() => this.genIndIcator()}
                     onEndReached={() => {
-                        console.log('---onEndReached----');
+                        //console.log('---onEndReached----');
 
                         setTimeout(() => {
                             if (this.canLoadMore) {//fix 滚动时两次调用onEndReached https://github.com/facebook/react-native/issues/14015
@@ -272,7 +276,7 @@ class TopTab extends Component {
                     onEndReachedThreshold={0.5}
                     onMomentumScrollBegin={() => {
                         this.canLoadMore = true; //fix 初始化时页调用onEndReached的问题
-                        console.log('---onMomentumScrollBegin-----')
+                        //console.log('---onMomentumScrollBegin-----')
                     }}
                 />
                 <Toast
