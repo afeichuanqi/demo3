@@ -6,12 +6,11 @@ import GlobalStyles from '../../res/styles/GlobalStyles';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import ViewUtil from "../../util/ViewUtil";
 
-const THEME_COLOR = '#678';
 export const FLAG_ABOUT = {flag_about: 'about', flag_about_me: 'about_me'};
 export default class AboutCommon {
     constructor(props, updateState) {
         this.props = props;
-        this.backPress = new BackPressComponent({backPress: () => this.onBackPress()})
+        this.backPress = new BackPressComponent({backPress: () => this.onBackPress()},{aaa:222})
         this.updateState = updateState;
     }
 

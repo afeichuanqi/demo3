@@ -15,12 +15,13 @@ import CustomTheme from '../page/CustomTheme';
 import {onShowCustomThemeView} from "../action/theme";
 import actions from "../action";
 import SafeAreaViewPlus from '../common/SafeAreaViewPlus';
+import {NavigationActions} from "react-navigation";
 type Props = {};
 
 class Homepage extends Component<Props> {
     constructor(props) {
         super(props);
-        this.backPress = new BackPressComponent({backPress: this.onBackPress()})
+        this.backPress = new BackPressComponent({backPress:()=>this.onBackPress()})
     }
 
     componentDidMount(): void {
@@ -33,11 +34,14 @@ class Homepage extends Component<Props> {
 
     onBackPress = () => {
         const {dispatch, nav} = this.props;
+        console.log(nav.routes[1].index);
+
         if (nav.routes[1].index === 0) {//如果RootNavigator中的MainNavigator的index为0，则不处理返回事件
             return false;
         }
+        console.log("NavigationActions.back()",NavigationActions.back());
         dispatch(NavigationActions.back());
-        return true;
+        return true;//不处理返回键
     };
 
     renderCustomThemeView() {

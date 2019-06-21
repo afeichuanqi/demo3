@@ -30,7 +30,13 @@ export default class AboutMePage extends Component<Props> {
             showContact: false
         }
     }
+    componentDidMount() {
+        this.aboutCommon.componentDidMount()
+    }
 
+    componentWillUnmount(): void {
+        this.aboutCommon.componentWillUnmount();
+    }
     onClick(tab) {
         if (!tab) return;
         const {theme}=this.params;
