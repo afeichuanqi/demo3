@@ -1,7 +1,6 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- *
  * @format
  * @flow
  */
@@ -20,7 +19,7 @@ import EventBus from 'react-native-event-bus';
 import EventTypes from '../util/EventTypes'
 import {BottomTabBar} from 'react-navigation-tabs';
 import {connect} from 'react-redux';
-
+import {View,Text} from 'react-native';
 const TABS = {
     PopularPage: {
         screen: PopularPage,
@@ -119,10 +118,15 @@ class DynamicTabNavigator extends Component<Props> {
 class TabBarcompnent extends Component {
     render() {
         return (
-            <BottomTabBar
-                {...this.props}
-                activeTintColor={this.props.theme.themeColor}
-            ></BottomTabBar>
+            <View>
+
+                <BottomTabBar
+                    {...this.props}
+                    activeTintColor={this.props.theme.themeColor}
+                ></BottomTabBar>
+
+            </View>
+
         )
 
     }

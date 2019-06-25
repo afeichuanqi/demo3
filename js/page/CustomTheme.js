@@ -13,8 +13,6 @@ class CustomTheme extends Component {
 
     }
     render() {
-        //debugger
-        //console.log('this.props.visible',this.props.visible);
         let view = this.props.visible ? <View style={GlobalStyles.root_container}>
             {this.renderContentView()}
         </View> : null;

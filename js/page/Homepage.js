@@ -46,13 +46,13 @@ class Homepage extends Component<Props> {
 
     renderCustomThemeView() {
         const {customThemeViewVisible,onShowCustomThemeView} =this.props;
-        return (
-            <CustomTheme
-                visible={customThemeViewVisible}
-                {...this.props}
-                onClose={() => onShowCustomThemeView(false)}
-            />
-        )
+        const CustomThemeShow = customThemeViewVisible? <CustomTheme
+            visible={customThemeViewVisible}
+            {...this.props}
+            onClose={() => onShowCustomThemeView(false)}
+        />:null;
+
+        return CustomThemeShow;
     }
 
     render() {

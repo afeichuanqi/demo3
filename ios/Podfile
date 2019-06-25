@@ -6,15 +6,12 @@ target 'demo3' do
   use_frameworks!
 
   # Pods for demo3
-#Umeng公共基础
-  pod 'UMCCommon'
-  pod 'UMCSecurityPlugins'
-  pod 'UMCCommonLog'
-# 统计
-  pod 'UMCAnalytics'
+# umeng公共基础
+pod 'UMCCommon'
+pod 'UMCSecurityPlugins'
+pod 'UMCCommonLog'
 
-    pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
-    pod 'react-native-webview', :path => '../node_modules/react-native-webview'
-
-  end
+pod 'UMCAnalytics'
+#pod 'react-native', :path => '../node_modules/react-native'
+#pod 'React', :path => '../node_modules/react-native'
+end
